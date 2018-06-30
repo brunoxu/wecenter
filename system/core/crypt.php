@@ -28,7 +28,7 @@ class core_crypt
 
         mcrypt_generic_init($mcrypt, $this->get_key($mcrypt, $key), mcrypt_create_iv(mcrypt_enc_get_iv_size($mcrypt), MCRYPT_RAND));
 
-        $result = mcrypt_generic($mcrypt, gzcompress($data));
+        $result = mcrypt_generic($mcrypt, base64_encode(gzcompress($data)));
 
         mcrypt_generic_deinit($mcrypt);
         mcrypt_module_close($mcrypt);
@@ -63,6 +63,11 @@ class core_crypt
 
         mcrypt_generic_deinit($mcrypt);
         mcrypt_module_close($mcrypt);
+
+        if ($_result = base64_decode($result))
+        {
+            return gzuncompress($_result);
+        }
 
         return gzuncompress($result);
     }
