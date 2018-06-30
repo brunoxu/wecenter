@@ -788,19 +788,10 @@ class account_class extends AWS_MODEL
         return true;
     }
 
-    public function setcookie_logout()
-    {
-        HTTP::set_cookie('_user_login', '', time() - 3600);
-    }
-
     public function logout()
     {
-        $this->setcookie_logout();
-        $this->setsession_logout();
-    }
+        HTTP::set_cookie('_user_login', '', time() - 3600);
 
-    public function setsession_logout()
-    {
         if (isset(AWS_APP::session()->client_info))
         {
             unset(AWS_APP::session()->client_info);
@@ -825,6 +816,9 @@ class account_class extends AWS_MODEL
         }
 
         $length = strlen(convert_encoding($user_name, 'UTF-8', 'GB2312'));
+        
+        //上一步会把user_name转化为gbk，故要转化回来
+        $user_name = convert_encoding($user_name,'GBK', 'UTF-8');
 
         $length_min = intval(get_setting('username_length_min'));
         $length_max = intval(get_setting('username_length_max'));
