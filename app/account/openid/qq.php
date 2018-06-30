@@ -64,7 +64,7 @@ class openid_qq extends AWS_CONTROLLER
             }
         }
 
-        $callback_url = '/account/openid/qq/bind/';
+        $callback_url = '/account/openid/qq/bind/return_url-';
 
         if ($_GET['return_url'])
         {
@@ -108,7 +108,7 @@ class openid_qq extends AWS_CONTROLLER
                     $this->model('integral')->process($this->user_id, 'BIND_OPENID', round((get_setting('integral_system_config_profile') * 0.2)), '绑定 OPEN ID');
                 }
 
-                HTTP::redirect('/account/setting/openid/');
+                HTTP::redirect('/account/setting/openid/__');
             }
             else
             {
@@ -202,7 +202,7 @@ class openid_qq extends AWS_CONTROLLER
         {
             $state = ($_GET['return_url']) ? base64_url_encode(array('return_url' => base64_decode($_GET['return_url']))) : null;
 
-            HTTP::redirect($this->model('openid_qq')->get_redirect_url('/account/openid/qq/bind/', $state));
+            HTTP::redirect($this->model('openid_qq')->get_redirect_url('/account/openid/qq/bind/return_url-', $state));
         }
     }
 

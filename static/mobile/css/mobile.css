@@ -451,8 +451,8 @@ footer{padding:10px 0;color: #999;font-size: 12px;}
 footer p{margin:0;}
 
 /* icon */
-.icon-v{color: #a3d700;font-size: 16px;}
-.icon-v.i-ve{color: #ffca3f;}
+.icon-v{color: #ffca3f;font-size: 16px;}
+.icon-v.i-ve{color: #a3d700;}
 .icon-inverse{display:inline-block;height: 24px;padding:0 5px;line-height:24px;background-color: #cccccc;color: #fff;text-align: center;}
 .icon-agree.active, .icon-disagree.active{color: #66b7ff;}
 .icon-tips{display:block;width: 6px;height: 6px;border-radius: 6px;background-color: #ff5428;}

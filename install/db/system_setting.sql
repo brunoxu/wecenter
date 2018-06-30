@@ -125,4 +125,5 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('weixin_encoding_aes_key', 's:0:"";'),
 ('integral_system_config_answer_change_source', 's:1:"Y";'),
 ('enable_help_center', 's:1:"N";'),
-('ucenter_path', 's:0:"";');
+('ucenter_path', 's:0:"";'),
+('wecenter_website', 's:1:"N";');

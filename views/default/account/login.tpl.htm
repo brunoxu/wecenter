@@ -74,7 +74,52 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+$(document).ready(function () { 
+    $('#login_form input').keydown(function (e) {
+        if (e.keyCode == 13)
+        {
+            $('#login_submit').click();
+        }
+    });
 
-<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/login.js"></script>
+    var check_weixin_login;
+
+    $('.btn-wechat').mouseover(function()
+    {
+    	if ($(this).find('img').length)
+    	{
+    		$(this).addClass('active');
+    	}
+
+    	check_weixin_login = setInterval(function ()
+    	{
+			$.get(G_BASE_URL + '/account/ajax/weixin_login_process/', function (response) {
+				if (response.errno == 1)
+				{
+                    if ($('input[name="return_url"]').val())
+                    {
+                        window.location.href = $(input[name="return_url"]).val();
+                    }
+                    else
+                    {
+                        window.location.reload();
+                    }
+				}
+			}, 'json');
+		}, 1500);
+
+    });
+
+    $('.btn-wechat').mouseout(function()
+    {
+    	$(this).removeClass('active');
+
+    	clearInterval(check_weixin_login);
+    });
+    
+});
+</script>
+<!-- <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/login.js"></script> -->
 
 <?php TPL::output('global/footer.tpl.htm'); ?>

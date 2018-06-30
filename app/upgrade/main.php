@@ -106,6 +106,7 @@ class main extends AWS_CONTROLLER
 			20151125,
 			20160226,
             20180503,
+            20180601,
 		);
         $this->db_version = get_setting('db_version', false);
         if ($this->db_version == 20150225 OR $this->db_version == 20150226 OR $this->db_version == 20160523)

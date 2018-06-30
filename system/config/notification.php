@@ -137,3 +137,13 @@ $config['action_details'][notify_class::TYPE_TICKET_CLOSED] = array(
 	'combine' => 0,
 	'desc' => AWS_APP::lang()->_t('我的工单被关闭')
 );
+$config['action_details'][notify_class::TYPE_ARTICLE_VOTES] = array(
+	'user_setting' => 1,
+	'combine' => 0,
+	'desc' => AWS_APP::lang()->_t('我的文章被点赞')
+);
+$config['action_details'][notify_class::TYPE_ARTICLE_COMMENT_VOTES] = array(
+	'user_setting' => 1,
+	'combine' => 0,
+	'desc' => AWS_APP::lang()->_t('我的评论被点赞')
+);

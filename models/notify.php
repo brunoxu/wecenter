@@ -52,12 +52,12 @@ class notify_class extends AWS_MODEL
 
 	const TYPE_ARTICLE_NEW_COMMENT	= 117; // 文章有新评论
 	const TYPE_ARTICLE_COMMENT_AT_ME	= 118; // 文章评论提到我
-
+	const TYPE_ARTICLE_VOTES=119;
+	const TYPE_ARTICLE_COMMENT_VOTES=1119;
 	const TYPE_ARTICLE_APPROVED = 131; // 文章通过审核
 	const TYPE_ARTICLE_REFUSED = 132; // 文章未通过审核
 	const TYPE_QUESTION_APPROVED = 133; // 问题通过审核
 	const TYPE_QUESTION_REFUSED = 134; // 问题未通过审核
-
 	const TYPE_TICKET_REPLIED = 141; // 工单被回复
 	const TYPE_TICKET_CLOSED = 142; // 工单被关闭
 
@@ -133,7 +133,6 @@ class notify_class extends AWS_MODEL
 		{
 			return false;
 		}
-
 		if ($unread_notifys = $this->get_unread_notification($recipient_uid))
 		{
 			$unread_extends = array();
@@ -203,6 +202,7 @@ class notify_class extends AWS_MODEL
 		if ($article_ids)
 		{
 			$article_list = $this->model('article')->get_article_info_by_ids($article_ids);
+
 		}
 
 		if ($ticket_ids)
@@ -245,6 +245,7 @@ class notify_class extends AWS_MODEL
 			switch ($notify['model_type'])
 			{
 				case self::CATEGORY_ARTICLE :
+				
 					if ($notify['action_type'] == self::TYPE_ARTICLE_REFUSED)
 					{
 						$tmp_data['title'] = $data['title'];
@@ -253,6 +254,7 @@ class notify_class extends AWS_MODEL
 					{
 						if (!$article_list[$data['article_id']])
 						{
+
 							continue;
 						}
 
@@ -1084,7 +1086,20 @@ class notify_class extends AWS_MODEL
 							'<a href="' . $val['p_url'] . '">' . $val['p_user_name'] . '</a> ',
 							'<a href="' . $val['key_url'] . '">' . $val['title'] . '</a>'
 						));
+						break;
 
+					case  self::TYPE_ARTICLE_COMMENT_VOTES:	
+					$data[$key]['message'] = AWS_APP::lang()->_t('%s0 赞了你对文章 %s1', array(
+							'<a href="' . $val['p_url'] . '">' . $val['p_user_name'] . '</a> ',
+							'<a href="' . $val['key_url'] . '">' . $val['title'] . '</a>的评论'
+						));	
+						break;
+
+					case  self::TYPE_ARTICLE_VOTES:
+					$data[$key]['message'] = AWS_APP::lang()->_t('%s0 赞了你的文章 %s1', array(
+							'<a href="' . $val['p_url'] . '">' . $val['p_user_name'] . '</a> ',
+							'<a href="' . $val['key_url'] . '">' . $val['title'] . '</a>'
+						));						
 						break;
 				}
 			}

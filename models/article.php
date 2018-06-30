@@ -341,7 +341,10 @@ class article_class extends AWS_MODEL
 				$this->update('article', array(
 					'votes' => $this->count('article_vote', "`type` = '" . $this->quote($type) . "' AND item_id = " . intval($item_id) . " AND rating = 1")
 				), 'id = ' . intval($item_id));
-
+			$this->model('notify')->send($uid, $item_uid, notify_class::TYPE_ARTICLE_VOTES, notify_class::CATEGORY_ARTICLE, $item_id, array(
+				'from_uid' => $uid,
+				'article_id' => $item_id,
+			));
 				switch ($rating)
 				{
 					case 1:
@@ -358,6 +361,12 @@ class article_class extends AWS_MODEL
 				$this->update('article_comments', array(
 					'votes' => $this->count('article_vote', "`type` = '" . $this->quote($type) . "' AND item_id = " . intval($item_id) . " AND rating = 1")
 				), 'id = ' . intval($item_id));
+				$comms=$this->get_comment_by_id($item_id);
+				// $arts=$this->get_article_info_by_id($comms['article_id']);
+			$this->model('notify')->send($uid, $item_uid, notify_class::TYPE_ARTICLE_COMMENT_VOTES, notify_class::CATEGORY_ARTICLE, $item_id, array(
+				'from_uid' => $uid,
+				'article_id' => $comms['article_id'],
+			));
 			break;
 		}
 

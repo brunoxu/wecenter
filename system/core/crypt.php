@@ -14,58 +14,31 @@
 
 class core_crypt
 {
+    private $cipher ="AES-256-CBC";
+    private $key = G_COOKIE_HASH_KEY;
+    private $ivLen;
     public function __construct()
     {
-        if (!function_exists('mcrypt_module_open'))
-        {
-            exit('Error: Mcrypt Module not support');
-        }
+        $this->key = hash('sha256', $this->key, true);
+        $this->ivLen = openssl_cipher_iv_length($this->cipher);
     }
 
     public function encode($data, $key = null)
     {
-        $mcrypt = mcrypt_module_open($this->get_algorithms(), '', MCRYPT_MODE_ECB, '');
-
-        mcrypt_generic_init($mcrypt, $this->get_key($mcrypt, $key), mcrypt_create_iv(mcrypt_enc_get_iv_size($mcrypt), MCRYPT_RAND));
-
-        $result = mcrypt_generic($mcrypt, base64_encode(gzcompress($data)));
-
-        mcrypt_generic_deinit($mcrypt);
-        mcrypt_module_close($mcrypt);
-
-        return $this->get_algorithms() . '|' . $this->str_to_hex($result);
+        $iv = openssl_random_pseudo_bytes($this->ivLen);
+        $data = openssl_encrypt($data, $this->cipher, $this->key, OPENSSL_RAW_DATA, $iv);
+        $data = base64_encode($iv . $data);
+        return $data;
     }
 
     public function decode($data, $key = null)
     {
-        if ($algorithm = strstr($data, '|', true))
-        {
-            $data = str_replace($algorithm . '|', '', $data);
-
-            $data = $this->hex_to_str($data);
-        }
-        else
-        {
-            $algorithm = $this->get_algorithms();
-
-            $data = base64_decode($data);
-        }
-
-        $mcrypt = mcrypt_module_open($algorithm, '', MCRYPT_MODE_ECB, '');
-
-        mcrypt_generic_init($mcrypt, $this->get_key($mcrypt, $key), mcrypt_create_iv(mcrypt_enc_get_iv_size($mcrypt), MCRYPT_RAND));
-
-        $result = trim(mdecrypt_generic($mcrypt, $data));
-
-        mcrypt_generic_deinit($mcrypt);
-        mcrypt_module_close($mcrypt);
+        $data = base64_decode($data);
+        $iv = substr($data, 0, $this->ivLen);
+        $data = substr($data, $this->ivLen);
+        $decrypted = openssl_decrypt($data, $this->cipher, $this->key, OPENSSL_RAW_DATA, $iv);
         
-        if ($_result = base64_decode($result))
-        {
-        	return gzuncompress($_result);
-        }
-
-        return gzuncompress($result);
+        return $decrypted;
     }
 
     private function get_key($mcrypt, $key = null)

@@ -1388,8 +1388,8 @@ function _array_column(array $array, $column_key, $index_key=null){
     return $result; 
 }
 
-
-
-
-
-
+//判断是否为官网 是则显示建议一栏
+function is_website()
+{	
+	return get_setting('wecenter_website') == 'Y' ? true : false; 
+}
