@@ -83,21 +83,63 @@ $(function()
 
 		$('#category_id').val(category_id);
 
-		AWS.Dropdown.set_dropdown_list('.aw-publish-title .dropdown', eval('[' + category_data + ']'), category_id);
+		AWS.Dropdown.set_dropdown_list('.aw-publish-title .dropdown.category', eval('[' + category_data + ']'), category_id);
 
-		$('.aw-publish-title .dropdown li a').click(function() {
+		$('.aw-publish-title .dropdown.category li a').click(function() {
 			$('#category_id').val($(this).attr('data-value'));
 		});
 
-		$.each($('.aw-publish-title .dropdown .aw-dropdown-list li a'),function(i, e)
+		$.each($('.aw-publish-title .dropdown.category .aw-dropdown-list li a'),function(i, e)
 		{
 			if ($(e).attr('data-value') == $('#category_id').val())
 			{
-				$('#aw-topic-tags-select').html($(e).html());
+                var html = $(e).html().length > 6 ? $(e).html().substr(0, 6) + '...' : $(e).html();
+				$('#aw-topic-tags-select-category').html(html);
 			}
 		});
 	}
+    //初始化专栏
+    if ($('#column_id').length)
+    {
+        var column_data = '', column_id;
 
+        $.each($('#column_id option').toArray(), function (i, field) {
+            if ($(field).attr('selected') == 'selected')
+            {
+                column_id = $(this).attr('value');
+            }
+            if (i > 0)
+            {
+                if (i > 1)
+                {
+                    column_data += ',';
+                }
+
+                column_data += "{'title':'" + $.trim($(field).text()) + "', 'id':'" + $.trim($(field).val()) + "'}";
+            }
+        });
+
+        if(column_id == undefined)
+        {
+            column_id = COLUMN_ID;
+        }
+
+        $('#column_id').val(column_id);
+        AWS.Dropdown.set_dropdown_list('.aw-publish-title .dropdown.column', eval('[' + column_data + ']'), column_id);
+
+        $('.aw-publish-title .dropdown.column li a').click(function() {
+            $('#column_id').val($(this).attr('data-value'));
+        });
+
+        $.each($('.aw-publish-title .dropdown.column .aw-dropdown-list li a'),function(i, e)
+        {
+            if ($(e).attr('data-value') == $('#column_id').val())
+            {
+                var html = $(e).html().length > 6 ? $(e).html().substr(0, 6) + '...' : $(e).html();
+                $('#aw-topic-tags-select-column').html(html);
+            }
+        });
+    }
 	//自动展开话题选择
 	$('.aw-edit-topic').click();
 

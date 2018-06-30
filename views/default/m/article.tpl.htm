@@ -24,7 +24,7 @@
 			</div>
 			<div class="mod-body">
 				<div class="markitup-box clearfix">
-					<?php echo $this->article_info['message']; ?>
+					<?php echo htmlspecialchars_decode($this->article_info['message']); ?>
 					<div id="weixin-desc" style="display:none;">
 						<?php echo cjk_substr(str_replace(array("\r","\n"),array(' ',' '), strip_tags($this->article_info['message'])), 0, 130, 'UTF-8', '...');?>
 					</div>

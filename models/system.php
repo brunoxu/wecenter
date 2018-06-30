@@ -93,8 +93,10 @@ class system_class extends AWS_MODEL
 	}
 
 	/* 获取分类 HTML 数据 */
-	public function build_category_html($type, $parent_id = 0, $selected_id = 0, $prefix = '', $child = true)
-	{
+	public function build_category_html($type, $parent_id = 0, $selected_id = 0, $prefix = '',$child = true , $is_suggest = 0)
+	{   
+
+
 		if (!$category_list = $this->fetch_category($type, $parent_id))
 		{
 			return false;
@@ -105,15 +107,32 @@ class system_class extends AWS_MODEL
 			$_prefix = $prefix . ' ';
 		}
 
+        
+
 		foreach ($category_list AS $category_id => $val)
-		{
-			if ($selected_id == $val['id'])
+		{   
+            
+			if ($is_suggest && !preg_match("/([建议]+)/u", $val['title']))     
+		    {     
+		        continue;
+		    }
+            
+		    if ($selected_id == $val['id'])
 			{
 				$html .= '<option value="' . $category_id . '" selected="selected">' . $_prefix . $val['title'] . '</option>';
 			}
 			else
-			{
-				$html .= '<option value="' . $category_id . '">' . $_prefix . $val['title'] . '</option>';
+			{   
+				if($is_suggest && preg_match("/([建议]+)/u", $val['title'])){
+
+                   $html .= '<option value="' . $category_id . '" selected="selected">' . $_prefix . $val['title'] . '</option>'; 
+
+		    	}else{
+
+		    	   $html .= '<option value="' . $category_id . '">' . $_prefix . $val['title'] . '</option>';
+
+		    	}
+				
 			}
 
 			if ($child AND $val['child'])
@@ -125,7 +144,7 @@ class system_class extends AWS_MODEL
 				unset($prefix);
 			}
 		}
-
+ 
 		return $html;
 	}
 

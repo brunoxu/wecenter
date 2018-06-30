@@ -28,4 +28,7 @@ $(document).ready(function () {
 		
 		$('#focus .aw-user-center-follow-mod').eq($(this).index()).show().siblings().hide();
 	});
+    if (INIT_TAB) {
+        $('#page_' + INIT_TAB).click();
+    }
 });

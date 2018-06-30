@@ -78,11 +78,13 @@ $(function()
 			case '#focus_topic__focus':
 				var request_url = G_BASE_URL + '/topic/ajax/focus_topics_list/page-' + $(this).attr('data-page');
 			break;
+			case '#focus_column__focus':
+				var request_url = G_BASE_URL+'/column/ajax/focus_column_list/page-'+ $(this).attr('data-page');
 		}
 
 		$(this).addClass('loading');
 
-		if (window.location.hash == '#focus_topic__focus')
+		if (window.location.hash == '#focus_topic__focus'||window.location.hash == '#focus_column__focus')
 		{
 			$('.aw-feed-list').addClass('aw-topic-list');
 
@@ -91,6 +93,7 @@ $(function()
 		{
 			$('.aw-feed-list').removeClass('aw-topic-list');
 		}
+
 
 		$.get(request_url, function (response)
 		{

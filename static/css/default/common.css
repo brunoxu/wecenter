@@ -174,8 +174,8 @@ a.aw-load-more-content{display: block;}
 .icon-inverse.follow:hover{color: #499ef3;}
 .icon-inverse.follow.active:before{content: "\e636";color: #58b957;}
 .icon-wechat, .icon-phone, .icon-reply, .icon-prestige, .icon-score, .icon-agree, .icon-comment, .icon-share, .icon-edit, .icon-invite, .icon-report, .icon-fold, .icon-best, .icon-favor, .icon-thank, .icon-cog, .icon-off, .icon-down, .icon-mobile-phone, .icon-envelope, .icon-check, .icon-attach{margin-right: 2px;color: #999;font-size: 16px;}
-.icon-v{color: #a3d700;font-size: 16px;}
-.icon-v.i-ve{color: #ffca3f;}
+.icon-v{color: #ffca3f;font-size: 16px;}
+.icon-v.i-ve{color: #a3d700;}
 .icon-down.active:before{content:"\e634";}
 .icon-add-alt{font-size: 18px;margin-right: 10px;}
 .i-private-replay-triangle{width: 8px;height: 10px;background: url('img/icon-angle-right.png') no-repeat;}
@@ -379,9 +379,9 @@ a.aw-load-more-content{display: block;}
 .aw-mod.people-sort .mod-body .icon-down{position: absolute;right: 8px;top: 10px;}
 
 /* 附件上传 */
-#upload-form{position: relative;width: 0;height: 0;opacity: 0;filter:alpha(opacity=0);}
-#upload-form .file-input{position:absolute;top:-7px;left:-12px;width: 80px;height: 34px;filter:alpha(opacity=0);cursor: pointer;}
-.aw-upload-box #upload-form .file-input{position:absolute;top:-7px;left:-12px;width: 80px;height: 34px;filter:alpha(opacity=0);}
+.upload-form{position: relative;width: 0;height: 0;opacity: 0;filter:alpha(opacity=0);}
+.upload-form .file-input{position:absolute;top:-7px;left:-12px;width: 80px;height: 34px;filter:alpha(opacity=0);cursor: pointer;}
+.aw-upload-box .upload-form .file-input{position:absolute;top:-7px;left:-12px;width: 80px;height: 34px;filter:alpha(opacity=0);}
 .aw-upload-box .upload-list{width:694px;height: auto;overflow: hidden;}
 .aw-upload-box .upload-list li{position:relative;float: left;width: 216px;height: 115px;padding:15px 15px 15px 110px;margin:15px 15px 0 0;background: #f5faff;border:1px solid #dcedfa;border-radius: 5px;}
 .aw-upload-box .upload-list li .img{position:absolute;left:10px;top:10px;width: 90px;height: 90px;background: url('img/ajax-loader.gif') center center no-repeat;text-align: center;line-height: 90px;border-radius: 5px;}
@@ -469,7 +469,7 @@ a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radiu
 .cke_button__maximize_icon:before {content: "\e65d";}
 .cke_button__removeformat_icon:before {content: "\e65f";}
 
-.aw-editor-box .mod-head{border:1px solid #e6e6e6;border-radius: 4px;}
+.aw-editor-box .mod-head{border-radius: 4px;}
 .aw-editor-box textarea{border: none;}
 .aw-editor-box .mod-body{position:relative;margin-top: 15px;line-height: 28px;}
 .aw-editor-box .mod-body #question_detail_message{line-height: 34px;}
@@ -551,8 +551,8 @@ blockquote {margin: 0 40px;padding: 0 15px;font-size: 14px;color: #777;border-le
 .aw-common-list{width:100%;height:auto;}
 .aw-common-list > div + div{border-top:1px solid #f5f5f5;}
 .aw-common-list .aw-item{position:relative;z-index:0;;min-height:77px;padding:14px 0 14px 50px;}
-.aw-common-list .aw-item .icon-v, .aw-feed-list .aw-item .icon-v{position:absolute;left:-5px;top:-5px;width:18px;height:18px;background-color: #a3d700;color: #fff;text-align: center;line-height: 18px;font-size: 14px;border-radius: 4px;}
-.aw-common-list .aw-item .icon-v.i-ve, .aw-feed-list .aw-item .icon-v.i-ve{background-color: #ffca3f;color: #fff;}
+.aw-common-list .aw-item .icon-v, .aw-feed-list .aw-item .icon-v{position:absolute;left:-5px;top:-5px;width:18px;height:18px;background-color: #ffca3f;color: #fff;text-align: center;line-height: 18px;font-size: 14px;border-radius: 4px;}
+.aw-common-list .aw-item .icon-v.i-ve, .aw-feed-list .aw-item .icon-v.i-ve{background-color: #a3d700;color: #fff;}
 .aw-common-list .aw-item.article .markitup-box{max-height: 130px;overflow: hidden;}
 .aw-common-list .aw-item.article .aw-upload-img-list{position: absolute;right: 10px;top: 0;width: 200px;}
 .aw-common-list .aw-item.article .aw-upload-img-list img{max-width: 200px;}

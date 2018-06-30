@@ -154,8 +154,10 @@ class openid_google_class extends AWS_MODEL
 
             return false;
         }
-        
-        $result = curl_get_contents(self::OAUTH2_USER_INFO_URL . '?alt=json&access_token=' . $this->access_token);
+
+        $header = array('Authorization: Bearer ' . $this->access_token);
+
+        $result = HTTP::request(self::OAUTH2_USER_INFO_URL, 'GET', null, 10, $header);
 
         if (!$result)
         {

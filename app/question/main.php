@@ -300,7 +300,6 @@ class main extends AWS_CONTROLLER
 				TPL::assign('draft_content', $this->model('draft')->get_data($question_info['question_id'], 'answer', $this->user_id));
 			}
 		}
-
 		$question_info['question_detail'] = FORMAT::parse_attachs(nl2br(FORMAT::parse_bbcode($question_info['question_detail'])));
 
 		TPL::assign('question_info', $question_info);

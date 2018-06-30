@@ -76,7 +76,7 @@ var AWS =
 		{
 			$.post(url, params + '&_post_type=ajax', function (result)
 			{
-				_callback(result);
+                _callback(result);
 			}, 'json').error(function (error)
 			{
 				_error(error);
@@ -96,7 +96,7 @@ var AWS =
 		function _callback (result)
 		{
 			AWS.loading('hide');
-
+debugger
 			if (!result)
 			{
 				return false;
@@ -162,6 +162,7 @@ var AWS =
 				EDITOR.removeListener('blur', EDITOR_CALLBACK);
 			}
 		}
+
 
 		var custom_data = {
 			_post_type: 'ajax'
@@ -466,7 +467,8 @@ var AWS =
 	 *  report      : 举报问题
 	 */
 	dialog: function (type, data, callback)
-	{
+	{   
+
 		switch (type)
 		{
 			case 'alertImg':
@@ -732,11 +734,11 @@ var AWS =
 				case 'commentEdit':
 					$.get(G_BASE_URL + '/question/ajax/fetch_answer_data/' + data.answer_id, function (result)
 					{
-						$('#editor_reply').html(result.answer_content.replace('&amp;', '&'));
+                        $('#editor_reply').html(result.answer_content.replace('&amp;', '&'));
 
-						var editor = CKEDITOR.replace( 'editor_reply' );
+                        var editor = CKEDITOR.replace( 'editor_reply' );
 
-						if (UPLOAD_ENABLE == 'Y')
+                        if (UPLOAD_ENABLE == 'Y')
 						{
 							var fileupload = new FileUpload('file', '.aw-edit-comment-box .aw-upload-box .btn', '.aw-edit-comment-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY, {'insertTextarea': '.aw-edit-comment-box #editor_reply', 'editor' : editor});
 
@@ -1419,23 +1421,41 @@ AWS.G =
 
 AWS.User =
 {
+
 	// 关注
-	follow: function(selector, type, data_id)
-	{
+	follow: function(selector, type, data_id ,status)
+	{   
 		if (selector.html())
-		{
-			if (selector.hasClass('active'))
-			{
-				selector.find('span').html(_t('关注'));
+		{   
+			if(status){
+				
+				if (selector.hasClass('active'))
+				{
+					selector.find('span').html(_t('关注'));
+					
+				}
+				else
+				{
+					selector.find('span').html(_t('取消关注'));
+				}
 
-				selector.find('b').html(parseInt(selector.find('b').html()) - 1);
-			}
-			else
-			{
-				selector.find('span').html(_t('取消关注'));
+			}else
+			{   
+				if (selector.hasClass('active'))
+				{
+					selector.find('span').html(_t('关注'));
 
-				selector.find('b').html(parseInt(selector.find('b').html()) + 1);
+					selector.find('b').html(parseInt(selector.find('b').html()) - 1);
+				}
+				else
+				{
+					selector.find('span').html(_t('取消关注'));
+
+					selector.find('b').html(parseInt(selector.find('b').html()) + 1);
+				}
+				
 			}
+			
 		}
 		else
 		{
@@ -1450,7 +1470,7 @@ AWS.User =
 		}
 
 		selector.addClass('disabled');
-
+        
 		switch (type)
 		{
 			case 'question':
@@ -1476,6 +1496,15 @@ AWS.User =
 
 				var data = {
 					'uid': data_id
+				};
+
+				break;
+
+			case 'column':
+				var url = '/column/ajax/focus_column/';
+
+				var data = {
+					'column_id': data_id
 				};
 
 				break;
@@ -2089,7 +2118,8 @@ AWS.Dropdown =
 
 		$(selector + ' .aw-dropdown-list li a').click(function ()
 		{
-			$('#aw-topic-tags-select').html($(this).text());
+			var text = $(this).text().length>6?$(this).text().substr(0,6)+'...':$(this).text()
+			$(selector+' .dropdown-toggle span').html(text);
 		});
 
 		if (selected)

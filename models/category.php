@@ -96,4 +96,30 @@ class category_class extends AWS_MODEL
 			'category_id' => intval($target_id)
 		), 'category_id = ' . intval($from_id));
 	}
+
+
+	public function check_is_suggest($category_id)
+	{    
+         $msg = $this->fetch_one('category','title','id = ' . intval($category_id));
+        
+         if(preg_match("/([建议]+)/u", $msg)){
+         	  return true;
+         }
+         return false;
+	}
+
+
+	public function getcategory_ids($pid = array()) {
+        
+        $arr = $this->query_all(' SELECT id FROM ' . get_table('category') . ' WHERE parent_id = '.$pid);
+
+    	if(!empty($arr))
+        {
+             $arrs = array_merge([0 => $pid ],_array_column($arr,'id'));
+             return $arrs;
+        }
+
+        return [0 => $pid ];
+
+	}
 }

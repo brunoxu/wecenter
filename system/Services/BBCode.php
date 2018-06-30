@@ -108,9 +108,10 @@ class Services_BBCode
 
 	private function _list_callback($match)
 	{
-		$match[1] = preg_replace_callback("/\[\*\](.*?)\[\/\*\]/is", array(&$this, '_list_element_callback'), $match[1]);
-
-        return "<ul>" . preg_replace("/[\n\r?]/", "", $match[1]) . "</ul>";
+        $match = preg_replace("/\n/", "",$match);
+        $ulParse= preg_replace('/\[(\/?)list\]/', '<${1}ul>', $match);
+        $liParse= preg_replace('/\[(\/?)\*\]/', '<${1}li>', $ulParse);
+        return implode("", $liParse);
 	}
 
 	private function _list_element_callback($match)
@@ -182,7 +183,7 @@ class Services_BBCode
         $this->bbcode_table["/\[video\](.*?)\[\/video\]/is"] = '_video_callback';
 
         // Replace [list]...[/list] with <ul><li>...</li></ul>
-        $this->bbcode_table["/\[list\](.*?)\[\/list\]/is"] = '_list_callback';
+        $this->bbcode_table["/\[list\].*\[\/list\]/is"] = '_list_callback';
 
         // Replace [list=1|a]...[/list] with <ul|ol><li>...</li></ul|ol>
         $this->bbcode_table["/\[list=(1|a)\](.*?)\[\/list\]/is"] = '_list_advance_callback';

@@ -815,10 +815,11 @@ class account_class extends AWS_MODEL
             return AWS_APP::lang()->_t('用户名不能包含 - / . % 与连续的下划线');
         }
 
-        $length = strlen(convert_encoding($user_name, 'UTF-8', 'GB2312'));
+        // $length = strlen(convert_encoding($user_name, 'UTF-8', 'GB2312'));
+        $length = mb_strlen($user_name,'UTF-8');
         
         //上一步会把user_name转化为gbk，故要转化回来
-        $user_name = convert_encoding($user_name,'GBK', 'UTF-8');
+        // $user_name = convert_encoding($user_name,'GBK', 'UTF-8');
 
         $length_min = intval(get_setting('username_length_min'));
         $length_max = intval(get_setting('username_length_max'));

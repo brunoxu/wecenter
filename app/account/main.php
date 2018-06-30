@@ -296,4 +296,16 @@ class main extends AWS_CONTROLLER
 
 		TPL::output('account/valid_approval');
 	}
+
+    public function change_skin_action()
+    {
+        $type = $_GET['type'];
+        $skins = ['common', 'green', 'orange'];
+        if (!in_array($type, $skins)) {
+            $type = 'common';
+        }
+
+        $this->model('account')->update_users_fields(['skin'=>$type.'.css'],$this->user_id);
+        HTTP::redirect('/');
+    }
 }

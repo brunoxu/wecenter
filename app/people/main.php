@@ -132,7 +132,7 @@ class main extends AWS_CONTROLLER
 			ACTION_LOG::ADD_TOPIC_FOCUS,
 			ACTION_LOG::ADD_ARTICLE
 		)), $this->user_id));
-
+        TPL::assign('initTab', $_GET['initTab']);
 		TPL::output('people/index');
 	}
 

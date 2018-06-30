@@ -173,7 +173,7 @@ class article_class extends AWS_MODEL
 		return true;
 	}
 
-	public function update_article($article_id, $uid, $title, $message, $topics, $category_id, $create_topic)
+	public function update_article($article_id, $uid, $title,$logo_img, $message, $topics, $category_id,$column_id, $create_topic)
 	{
 		if (!$article_info = $this->model('article')->get_article_info_by_id($article_id))
 		{
@@ -196,8 +196,10 @@ class article_class extends AWS_MODEL
 
 		$this->update('article', array(
 			'title' => htmlspecialchars($title),
+			'article_img'=>$logo_img,
 			'message' => htmlspecialchars($message),
-			'category_id' => intval($category_id)
+			'category_id' => intval($category_id),
+			'column_id' => intval($column_id),
 		), 'id = ' . intval($article_id));
 
 		$this->model('posts')->set_posts_index($article_id, 'article');
@@ -205,7 +207,7 @@ class article_class extends AWS_MODEL
 		return true;
 	}
 
-	public function get_articles_list($category_id, $page, $per_page, $order_by, $day = null)
+	public function get_articles_list($category_id, $page, $per_page, $order_by, $day = null ,$uid = 0 , $filter = '')
 	{
 		$where = array();
 
@@ -218,6 +220,20 @@ class article_class extends AWS_MODEL
 		{
 			$where[] = 'add_time > ' . (time() - $day * 24 * 60 * 60);
 		}
+
+		if ($uid)
+		{
+			$where[] = 'uid = ' . $uid;
+		}
+             
+		
+        $category_ids = $this->model('column')->check_suggest();
+              
+        if(!empty($category_ids)){
+
+        	  $where[] = 'category_id not in ('.implode(',',$category_ids) .')';
+        	  
+        }
 
 		return $this->fetch_page('article', implode(' AND ', $where), $order_by, $page, $per_page);
 	}
@@ -490,4 +506,11 @@ class article_class extends AWS_MODEL
 
 		$this->model('posts')->set_posts_index($article_id, 'article');
 	}
+
+
+	public function get_user_article_views($uid){
+        return $this->sum('article','views','uid = '.$uid);
+	}
+
+
 }

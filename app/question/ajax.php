@@ -48,7 +48,7 @@ class ajax extends AWS_CONTROLLER
 
 		if ($answer_info['uid'] == $this->user_id OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])
 		{
-			echo json_encode($answer_info);
+            echo json_encode($answer_info);
 		}
 	}
 
@@ -576,11 +576,6 @@ class ajax extends AWS_CONTROLLER
 		}
 
 		$this->model('draft')->delete_draft($question_info['question_id'], 'answer', $this->user_id);
-		
-		if ($question_info['anonymous'] AND $question_info['published_uid'] == $this->user_id)
-		{
-			$_POST['anonymous'] = 1;
-		}
 
 		if ($this->publish_approval_valid($answer_content))
 		{

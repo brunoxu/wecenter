@@ -14,6 +14,7 @@
 
 class FORMAT
 {
+
 	public static function parse_links($str, $mode = 'text')
 	{
 		if ($mode == 'bbcode')
@@ -31,6 +32,7 @@ class FORMAT
 
 		return $str;
 	}
+	
 
 	public static function outside_url_exists($str)
 	{
@@ -85,7 +87,8 @@ class FORMAT
 			return false;
 		}
 
-		return load_class('Services_BBCode')->parse(self::parse_links($text, 'bbcode'));
+		// return load_class('Services_BBCode')->parse(self::parse_links($text, 'bbcode'));
+		return load_class('Services_BBCode')->parse($text);
 	}
 
 	// 兼容旧版本

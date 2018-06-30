@@ -82,9 +82,13 @@ class AWS_CONTROLLER
 			AWS_APP::session()->human_valid = array();
 		}
 
+        $css = 'common.css';
+        if ($this->user_id&&$this->user_info['skin']) {
+            $css = $this->user_info['skin'];
+        }
 		// 引入系统 CSS 文件
 		TPL::import_css(array(
-			'css/common.css',
+			'css/'.$css,
 			'css/link.css',
 			'js/plug_module/style.css',
 		));

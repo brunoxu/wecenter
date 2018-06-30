@@ -454,4 +454,9 @@
 .icon-edit:before {
 	content: "\e65c";
 }
-
+.icon-skin:before {
+	content: "\e900"
+}
+.icon-column:before {
+	content: "\e901";
+}

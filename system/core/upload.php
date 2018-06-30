@@ -161,9 +161,15 @@ class core_upload {
         }
         else
         {
+
             // Is $_FILES[$field] set? If not, no reason to continue.
             if ( ! isset($_FILES[$field]))
             {
+                $post_max_size = get_cfg_var("post_max_size");
+                if ($_SERVER['CONTENT_LENGTH']/1024/1024>intval($post_max_size)) {
+                    $this->set_error('upload_file_exceeds_limit');
+                    return FALSE;
+                }
                 $this->set_error('upload_no_file_selected');
                 return FALSE;
             }

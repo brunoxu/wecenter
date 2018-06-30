@@ -22,6 +22,7 @@ class ACTION_LOG
 
 	const CATEGORY_TOPIC = 4;	// 话题
 
+	const CATEGORY_COLUMN = 5;	// 专栏
 
 	const ADD_QUESTION = 101;	// 添加问题
 
@@ -68,6 +69,8 @@ class ACTION_LOG
 	const ADD_AGREE_ARTICLE = 502;	// 赞同文章
 
 	const ADD_COMMENT_ARTICLE = 503;	// 评论文章
+
+	const ADD_COLUMN_FOCUS = 506;	// 添加专栏关注
 
 	const ADD_LIKE_PROJECT = 701;	// 喜欢活动
 

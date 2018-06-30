@@ -376,7 +376,7 @@ class topic_class extends AWS_MODEL
 
 			$result = 'remove';
 
-			ACTION_LOG::delete_action_history('associate_type = ' . ACTION_LOG::CATEGORY_QUESTION . ' AND associate_action = ' . ACTION_LOG::ADD_TOPIC_FOCUS . ' AND uid = ' . intval($uid) . ' AND associate_id = ' . intval($topic_id));
+			ACTION_LOG::delete_action_history('associate_type = ' . ACTION_LOG::CATEGORY_TOPIC . ' AND associate_action = ' . ACTION_LOG::ADD_TOPIC_FOCUS . ' AND uid = ' . intval($uid) . ' AND associate_id = ' . intval($topic_id));
 		}
 
 		// 更新个人计数
@@ -597,7 +597,7 @@ class topic_class extends AWS_MODEL
 	{
 		return $this->get_item_ids_by_topics_ids(array(
 			$topic_id
-		), $type, $limit);
+		), $limit);
 	}
 
 	public function get_item_ids_by_topics_ids($topic_ids, $type = null, $limit = null)

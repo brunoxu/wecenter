@@ -15,7 +15,7 @@ CKEDITOR.editorConfig = function( config ) {
 		 ['Cleanup','Bold','Italic','NumberedList','BulletedList', 'Blockquote', 'pbckcode', 'WecenterImage', 'WecenterAttach', 'WecenterLink', 'WecenterVideo', 'Maximize']
 	]
 
-	config.extraPlugins = 'autolink,pbckcode,bbcode,sourcearea,wecenterattach,wecenterimage,wecenterlink,wecentervideo,blockquote,font';
+	config.extraPlugins = 'autolink,pbckcode,bbcode,wecenterattach,wecenterimage,wecenterlink,wecentervideo,font';
 
 	config.resize_enabled = false;
 
@@ -26,7 +26,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.height = 250;
 
 	// 过滤粘贴内容
-	config.forcePasteAsPlainText = true;
+	config.forcePasteAsPlainText = false;
 
 	config.magicline_color = '#ccc';
 

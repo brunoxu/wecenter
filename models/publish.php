@@ -42,7 +42,7 @@ class publish_class extends AWS_MODEL
 				break;
 
 			case 'article':
-				$article_id = $this->publish_article($approval_item['data']['title'], $approval_item['data']['message'], $approval_item['uid'], $approval_item['data']['topics'], $approval_item['data']['category_id'], $approval_item['data']['attach_access_key'], $approval_item['data']['permission_create_topic']);
+				$article_id = $this->publish_article($approval_item['data']['title'],$approval_item['data']['article_img'], $approval_item['data']['message'], $approval_item['uid'], $approval_item['data']['topics'], $approval_item['data']['category_id'], $approval_item['data']['column_id'], $approval_item['data']['attach_access_key'], $approval_item['data']['permission_create_topic']);
 
 				$this->model('notify')->send(0, $approval_item['uid'], notify_class::TYPE_ARTICLE_APPROVED, notify_class::CATEGORY_ARTICLE, 0, array('article_id' => $article_id));
 
@@ -320,13 +320,15 @@ class publish_class extends AWS_MODEL
 		return $question_id;
 	}
 
-	public function publish_article($title, $message, $uid, $topics = null, $category_id = null, $attach_access_key = null, $create_topic = true)
+	public function publish_article($title,$logo_img, $message, $uid, $topics = null, $category_id = null,$column_id=null, $attach_access_key = null, $create_topic = true)
 	{
 		if ($article_id = $this->insert('article', array(
 			'uid' => intval($uid),
 			'title' => htmlspecialchars($title),
 			'message' => htmlspecialchars($message),
 			'category_id' => intval($category_id),
+			'column_id' => intval($column_id),
+			'article_img' => $logo_img,
 			'add_time' => time()
 		)))
 		{

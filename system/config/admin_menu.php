@@ -212,10 +212,18 @@ $config[] = array(
         ),
 
         array(
+            'id' => 299,
+            'title' => AWS_APP::lang()->_t('专栏管理'),
+            'url' => 'admin/column/list/'
+        ),
+
+        array(
             'id' => 305,
             'title' => AWS_APP::lang()->_t('帮助中心'),
             'url' => 'admin/help/list/'
         )
+
+        
     )
 );
 

@@ -913,7 +913,7 @@ function strip_ubb($str)
 	$str = preg_replace('/\[[^\]]+\](http[s]?:\/\/[^\[]*)\[\/[^\]]+\]/', ' $1 ', $str);
 
 	$pattern = '/\[[^\]]+\]([^\[]*)\[\/[^\]]+\]/';
-	$replacement = ' $1 ';
+	$replacement = '  ';
 	return preg_replace($pattern, $replacement, preg_replace($pattern, $replacement, $str));
 }
 
@@ -1332,3 +1332,64 @@ function uniqid_generate($length = 16)
 {
 	return substr(strtolower(md5(uniqid(rand()))), 0, $length);
 }
+
+
+function debug($val , $dump = false , $exit = true){
+
+    if($dump){
+        $func = 'var_dump';
+    }else{
+        $func = (is_array($val) || is_object($val)) ? 'print_r' : 'printf'; 
+    }
+
+    header("Content-type:text/html;charset=utf-8");
+
+    echo "<pre>debug output:<hr />";
+
+    $func($val);
+    
+    echo "</pre>";
+
+    if($exit) exit;
+
+}
+
+
+function num2tring($num) {
+    if ($num >= 10000) {
+        $num = round($num / 10000 * 100) / 100 .' W+';
+    } elseif($num >= 1000) {
+        $num = round($num / 1000 * 100) / 100 . ' K';
+    } else {
+        $num = $num;
+    }
+    return $num;
+}
+
+//低版本代替array_column
+function _array_column(array $array, $column_key, $index_key=null){
+    $result = [];
+    foreach($array as $arr) {
+        if(!is_array($arr)) continue;
+
+        if(is_null($column_key)){
+            $value = $arr;
+        }else{
+            $value = $arr[$column_key];
+        }
+
+        if(!is_null($index_key)){
+            $key = $arr[$index_key];
+            $result[$key] = $value;
+        }else{
+            $result[] = $value;
+        }
+    }
+    return $result; 
+}
+
+
+
+
+
+

@@ -55,10 +55,8 @@ class ajax extends AWS_ADMIN_CONTROLLER
         {
             $this->model('admin')->set_admin_login($user_info['uid']);
 
-            $url = $_POST['url'] ? base64_decode($_POST['url']) : '/admin/';
-            
             H::ajax_json_output(AWS_APP::RSM(array(
-                'url' => get_js_url($url)
+                'url' => $_POST['url'] ? base64_decode($_POST['url']) : get_js_url('/admin/')
             ), 1, null));
         }
         else
@@ -1226,7 +1224,9 @@ class ajax extends AWS_ADMIN_CONTROLLER
             'publish_article',
             'edit_article',
             'edit_question_topic',
-            'publish_comment'
+            'publish_comment',
+            'publish_column',
+            'edit_column'
         );
 
         if (check_extension_package('ticket'))

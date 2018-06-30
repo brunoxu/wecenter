@@ -38,12 +38,8 @@ class core_crypt
 
     public function decode($data, $key = null)
     {
-        if (strstr($data, '|'))
+        if ($algorithm = strstr($data, '|', true))
         {
-			$decode_data = explode('|', $data);
-
-			$algorithm = $decode_data[0];
-
             $data = str_replace($algorithm . '|', '', $data);
 
             $data = $this->hex_to_str($data);
@@ -63,10 +59,10 @@ class core_crypt
 
         mcrypt_generic_deinit($mcrypt);
         mcrypt_module_close($mcrypt);
-
+        
         if ($_result = base64_decode($result))
         {
-            return gzuncompress($_result);
+        	return gzuncompress($_result);
         }
 
         return gzuncompress($result);
