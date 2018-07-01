@@ -385,7 +385,7 @@ switch ($_POST['step'])
 		unset($insert_query[0]);
 
 		foreach ($insert_query AS $_sql)
-		{
+		{if (empty(trim($_sql))) continue;
 			$insert_vars = explode("', '", ltrim(rtrim(rtrim(rtrim($_sql, ','), ';'), ')'), '('));
 
 			try {
